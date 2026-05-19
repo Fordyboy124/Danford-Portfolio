@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -16,21 +16,8 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        dark: {
-                            950: '#030712',
-                            900: '#0b0f19',
-                            800: '#1f293d',
-                            700: '#374151'
-                        },
-                        accent: {
-                            purple: '#8b5cf6',
-                            indigo: '#6366f1',
-                            blue: '#3b82f6'
-                        }
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
                     }
                 }
             }
@@ -40,558 +27,1331 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Modern Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #030712; }
-        ::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
-        
-        /* Glassmorphism Classes */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        :root {
+            --bg-primary: #0a0a08;
+            --bg-secondary: #111110;
+            --bg-card: #161614;
+            --border: rgba(255,255,255,0.07);
+            --border-hover: rgba(212,163,75,0.35);
+            --gold: #d4a34b;
+            --gold-light: #e8c27a;
+            --gold-dim: rgba(212,163,75,0.15);
+            --teal: #3ecfb2;
+            --teal-dim: rgba(62,207,178,0.12);
+            --crimson: #e05252;
+            --text-primary: #f0ede6;
+            --text-secondary: #9b9889;
+            --text-muted: #5a5850;
         }
-        .glass-card {
-            background: rgba(31, 41, 61, 0.2);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+
+        * { box-sizing: border-box; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #2a2920; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* Ambient glows */
+        .glow-gold {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glass {
+            background: rgba(22, 22, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+        }
+
+        .glass-hover {
+            background: rgba(22, 22, 20, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .glass-card:hover {
-            background: rgba(31, 41, 61, 0.4);
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateY(-4px);
+        .glass-hover:hover {
+            background: rgba(30, 28, 24, 0.7);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,163,75,0.1);
         }
-        
-        /* Animation Core Reveal classes */
+
+        /* Gold gradient text */
+        .text-gold { color: var(--gold); }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, #b8862e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .text-teal { color: var(--teal); }
+
+        /* Divider line */
+        .gold-rule {
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), transparent);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: rgba(212,163,75,0.08);
+            border: 1px solid rgba(212,163,75,0.2);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* Reveal animation */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(28px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* Header */
+        #main-header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 50;
+            transition: all 0.3s;
+        }
+        #main-header.scrolled {
+            background: rgba(10,10,8,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Nav link */
+        .nav-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-link:hover { color: var(--text-primary); }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--gold) 0%, #b8862e 100%);
+            color: #0a0a08;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(212,163,75,0.25);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 12px 32px rgba(212,163,75,0.4);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 13px;
+            letter-spacing: 0.03em;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            border-color: rgba(212,163,75,0.4);
+            background: rgba(212,163,75,0.05);
+        }
+
+        /* Skill bar */
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 13px;
+        }
+        .skill-row:last-child { border-bottom: none; }
+        .skill-level {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* Project card category tag */
+        .tag {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .tag-gold { background: rgba(212,163,75,0.12); color: var(--gold); }
+        .tag-teal { background: rgba(62,207,178,0.1); color: var(--teal); }
+        .tag-muted { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+
+        /* Card image area */
+        .card-image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Testimonial quote mark */
+        .quote-mark {
+            font-family: 'Syne', sans-serif;
+            font-size: 80px;
+            line-height: 1;
+            color: rgba(212,163,75,0.1);
+            position: absolute;
+            top: 8px;
+            left: 24px;
+        }
+
+        /* Form inputs */
+        .form-input {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 13px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-input:focus { border-color: var(--gold); }
+        .form-input::placeholder { color: var(--text-muted); }
+        select.form-input option { background: #1a1a18; }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--gold), var(--teal));
+        }
+
+        /* Section label */
+        .section-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* Hero decoration */
+        .hero-decoration {
+            width: 280px;
+            height: 280px;
+            border-radius: 24px;
+            background: rgba(22, 22, 18, 0.8);
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 28px;
+            transform: rotate(6deg);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-decoration:hover { transform: rotate(0deg); }
+        .hero-decoration::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212,163,75,0.06) 0%, rgba(62,207,178,0.04) 100%);
+        }
+
+        /* Animated cursor dot */
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse-anim 2s infinite;
+        }
+        @keyframes pulse-anim {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+        }
+
+        /* Project tab buttons */
+        .project-tab {
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+            background: transparent;
+        }
+        .project-tab:hover { color: var(--text-primary); border-color: var(--border); }
+        .project-tab.active {
+            background: var(--gold-dim);
+            color: var(--gold);
+            border-color: rgba(212,163,75,0.25);
+        }
+
+        /* Mobile menu */
+        #mobile-drawer {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(10,10,8,0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        #mobile-drawer a {
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: color 0.2s;
+        }
+        #mobile-drawer a:hover { color: var(--text-primary); }
+
+        /* Service card icon */
+        .service-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Contact info row */
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .contact-row:hover {
+            border-color: var(--border-hover);
+            background: rgba(212,163,75,0.04);
+        }
+        .contact-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Scrolling ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+            background: var(--bg-secondary);
+        }
+        .ticker {
+            display: flex;
+            gap: 0;
+            animation: ticker-scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 40px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .ticker-dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Stats */
+        .stat-card {
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(22,22,20,0.5);
         }
     </style>
 </head>
-<body class="bg-dark-950 text-slate-100 font-sans antialiased overflow-x-hidden">
+<body>
+    <!-- Ambient glows -->
+    <div class="glow-gold" style="top:-100px;left:20%;width:600px;height:600px;background:radial-gradient(circle,rgba(212,163,75,0.06) 0%,transparent 70%);"></div>
+    <div class="glow-gold" style="top:800px;right:5%;width:500px;height:500px;background:radial-gradient(circle,rgba(62,207,178,0.04) 0%,transparent 70%);"></div>
+    <div class="glow-gold" style="bottom:400px;left:10%;width:400px;height:400px;background:radial-gradient(circle,rgba(212,163,75,0.04) 0%,transparent 70%);"></div>
 
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-indigo/10 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute top-[1200px] right-1/4 w-[500px] h-[500px] bg-accent-purple/5 rounded-full blur-[150px] pointer-events-none"></div>
-    <div class="absolute bottom-[800px] left-10 w-[400px] h-[400px] bg-accent-blue/5 rounded-full blur-[130px] pointer-events-none"></div>
-
-    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="main-header">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                DANFORD<span class="text-accent-indigo">.</span>AKALA
+    <!-- ═══════════════════ HEADER ═══════════════════ -->
+    <header id="main-header">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" style="position:relative;z-index:1;">
+            <a href="#" style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:0.06em;color:var(--text-primary);text-decoration:none;">
+                DANFORD<span style="color:var(--gold);">.</span>AKALA
             </a>
             
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-                <a href="#about" class="hover:text-white transition-colors">About</a>
-                <a href="#skills" class="hover:text-white transition-colors">Expertise</a>
-                <a href="#projects" class="hover:text-white transition-colors">Case Studies</a>
-                <a href="#services" class="hover:text-white transition-colors">Services</a>
-                <a href="#seo" class="hover:text-white transition-colors">Local SEO</a>
-                <a href="#contact" class="px-5 py-2.5 glass-panel text-white rounded-full hover:bg-white hover:text-dark-950 transition-all duration-300">Get In Touch</a>
+            <nav class="hidden md:flex items-center" style="gap:32px;">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Expertise</a>
+                <a href="#projects" class="nav-link">Case Studies</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#seo" class="nav-link">Local SEO</a>
+                <a href="#contact" class="btn-primary" style="padding:10px 22px;font-size:11px;">Get In Touch</a>
             </nav>
 
-            <button class="md:hidden text-white text-xl focus:outline-none" id="mobile-menu-btn" aria-label="Toggle Menu">
+            <button id="mobile-menu-btn" class="md:hidden" style="background:none;border:none;color:var(--text-primary);font-size:20px;cursor:pointer;" aria-label="Toggle Menu">
                 <i class="fa-solid fa-bars-staggered"></i>
             </button>
         </div>
         
-        <div id="mobile-drawer" class="hidden absolute top-20 left-0 w-full glass-panel border-b border-slate-800 flex flex-col p-6 space-y-4 md:hidden">
-            <a href="#about" class="text-slate-300 hover:text-white text-lg py-2">About</a>
-            <a href="#skills" class="text-slate-300 hover:text-white text-lg py-2">Expertise</a>
-            <a href="#projects" class="text-slate-300 hover:text-white text-lg py-2">Case Studies</a>
-            <a href="#services" class="text-slate-300 hover:text-white text-lg py-2">Services</a>
-            <a href="#seo" class="text-slate-300 hover:text-white text-lg py-2">Local SEO</a>
-            <a href="#contact" class="w-full text-center py-3 bg-gradient-to-r from-accent-indigo to-accent-purple text-white rounded-lg">Get In Touch</a>
+        <div id="mobile-drawer" class="hidden md:hidden">
+            <a href="#about">About</a>
+            <a href="#skills">Expertise</a>
+            <a href="#projects">Case Studies</a>
+            <a href="#services">Services</a>
+            <a href="#seo">Local SEO</a>
+            <a href="#contact" class="btn-primary" style="text-align:center;margin-top:12px;">Get In Touch</a>
         </div>
     </header>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-24 px-6 overflow-hidden">
-        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-8 space-y-8 text-left z-10">
-                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full glass-panel border border-slate-700/50 text-xs font-semibold tracking-wider text-accent-indigo uppercase">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Available for Enterprise & Elite Projects</span>
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <section style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;overflow:hidden;z-index:1;">
+        <div class="max-w-7xl mx-auto w-full" style="display:grid;grid-template-columns:1fr;gap:60px;align-items:center;">
+            <div style="max-width:820px;">
+                <div class="badge" style="margin-bottom:28px;">
+                    <div class="pulse-dot"></div>
+                    Available for Enterprise & Elite Projects
                 </div>
                 
-                <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white">
-                    Danford Akala <br>
-                    <span class="bg-gradient-to-r from-accent-indigo via-accent-purple to-accent-blue bg-clip-text text-transparent">
-                        Full Stack Web Developer & UI/UX-Focused Digital Solutions Engineer
-                    </span>
+                <h1 style="font-family:'Syne',sans-serif;font-size:clamp(42px,7vw,80px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:28px;color:var(--text-primary);">
+                    Danford Akala<br>
+                    <span class="text-gold-gradient">Full Stack Developer</span><br>
+                    <span style="color:var(--text-secondary);font-weight:600;font-size:clamp(28px,4.5vw,52px);">& UI/UX Solutions Engineer</span>
                 </h1>
 
-                <p class="max-w-2xl text-slate-400 text-lg sm:text-xl font-light leading-relaxed">
-                    Architecting high-performance scalable web platforms, modern elite UI/UX ecosystems, Conversion-driven business frameworks, pristine technical SEO configurations, and fully tailored custom enterprise digital solutions.
+                <p style="font-size:17px;color:var(--text-secondary);font-weight:300;line-height:1.8;max-width:620px;margin-bottom:44px;">
+                    Architecting high-performance scalable web platforms, modern elite UI/UX ecosystems, conversion-driven business frameworks, pristine technical SEO configurations, and fully tailored custom enterprise digital solutions.
                 </p>
 
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                    <a href="#projects" class="px-8 py-4 bg-gradient-to-r from-accent-indigo to-accent-purple hover:from-accent-purple hover:to-accent-indigo text-white font-medium rounded-xl shadow-lg shadow-accent-indigo/20 hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-3 group">
-                        <span>Explore Architecture Portfolio</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+                    <a href="#projects" class="btn-primary">
+                        <span>Explore Portfolio</span>
+                        <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i>
                     </a>
-                    <a href="#contact" class="px-8 py-4 glass-panel border border-slate-700 hover:border-slate-500 text-white font-medium rounded-xl transition-all duration-300 flex items-center justify-center space-x-2">
-                        <i class="fa-regular fa-envelope text-slate-400"></i>
+                    <a href="#contact" class="btn-secondary">
+                        <i class="fa-regular fa-envelope" style="font-size:13px;color:var(--text-secondary);"></i>
                         <span>Initiate Consultation</span>
                     </a>
                 </div>
+
+                <!-- Mini stats row -->
+                <div style="display:flex;flex-wrap:wrap;gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);">
+                    <div>
+                        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--gold);line-height:1;">100%</div>
+                        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Custom Architecture</div>
+                    </div>
+                    <div>
+                        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--teal);line-height:1;">Sub-1s</div>
+                        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Core Web Vitals</div>
+                    </div>
+                    <div>
+                        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--text-primary);line-height:1;">12+</div>
+                        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Live Deployments</div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="lg:col-span-4 relative hidden lg:flex items-center justify-center">
-                <div class="w-72 h-72 rounded-3xl bg-gradient-to-tr from-accent-indigo/20 to-accent-purple/20 border border-slate-800 flex items-center justify-center rotate-6 transform hover:rotate-0 transition-transform duration-700 shadow-2xl backdrop-blur-3xl">
-                    <div class="w-full h-full p-8 flex flex-col justify-between">
-                        <div class="flex justify-between items-start">
-                            <div class="w-10 h-10 rounded-xl bg-dark-900 flex items-center justify-center text-accent-indigo border border-slate-700/50">
-                                <i class="fa-solid fa-code text-sm"></i>
+        </div>
+
+        <!-- Decorative corner element -->
+        <div style="position:absolute;bottom:40px;right:40px;opacity:0.3;display:none;" class="lg:block">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="55" stroke="rgba(212,163,75,0.3)" stroke-width="1" stroke-dasharray="4 6"/>
+                <circle cx="60" cy="60" r="35" stroke="rgba(212,163,75,0.2)" stroke-width="1"/>
+                <circle cx="60" cy="60" r="4" fill="rgba(212,163,75,0.5)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item">Full Stack Development <span class="ticker-dot"></span></span>
+            <span class="ticker-item">UI/UX Design Systems <span class="ticker-dot"></span></span>
+            <span class="ticker-item">React & Next.js <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Laravel & PHP <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Technical SEO Architecture <span class="ticker-dot"></span></span>
+            <span class="ticker-item">WordPress Elite Builds <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Shopify Development <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Performance Optimization <span class="ticker-dot"></span></span>
+            <span class="ticker-item">LMS Engineering <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Core Web Vitals <span class="ticker-dot"></span></span>
+            <!-- duplicate for seamless loop -->
+            <span class="ticker-item">Full Stack Development <span class="ticker-dot"></span></span>
+            <span class="ticker-item">UI/UX Design Systems <span class="ticker-dot"></span></span>
+            <span class="ticker-item">React & Next.js <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Laravel & PHP <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Technical SEO Architecture <span class="ticker-dot"></span></span>
+            <span class="ticker-item">WordPress Elite Builds <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Shopify Development <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Performance Optimization <span class="ticker-dot"></span></span>
+            <span class="ticker-item">LMS Engineering <span class="ticker-dot"></span></span>
+            <span class="ticker-item">Core Web Vitals <span class="ticker-dot"></span></span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════ ABOUT ═══════════════════ -->
+    <section id="about" style="padding:120px 24px;position:relative;z-index:1;" class="reveal">
+        <div class="max-w-7xl mx-auto">
+            <div style="display:grid;grid-template-columns:1fr;gap:60px;" class="lg:grid-cols-12-custom">
+                <div style="display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:start;" class="about-grid">
+                    <div style="position:sticky;top:120px;">
+                        <span class="section-label">Professional Bio</span>
+                        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,42px);font-weight:800;line-height:1.1;letter-spacing:-0.01em;color:var(--text-primary);">Engineering Visual Value & Enterprise Scale</h2>
+                        <div class="gold-rule" style="margin-top:24px;"></div>
+                    </div>
+
+                    <div>
+                        <p style="font-size:16px;color:var(--text-secondary);line-height:1.85;margin-bottom:24px;font-weight:300;">
+                            As an expert <strong style="color:var(--text-primary);font-weight:500;">Full-Stack Web Developer & UI/UX-focused Systems Engineer</strong>, I unify premium creative design philosophies with production-grade backend performance frameworks. I eliminate standard, generic developer methodologies to construct custom solutions engineered directly to scale enterprise functionality and brand market validation.
+                        </p>
+                        <p style="font-size:16px;color:var(--text-secondary);line-height:1.85;margin-bottom:40px;font-weight:300;">
+                            My architectural design strategy targets user engagement performance, extreme platform optimizations, top-tier technical SEO ranking infrastructures, and perfect system responsiveness across every possible display format.
+                        </p>
+
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                            <div class="stat-card">
+                                <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--gold);">100%</div>
+                                <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:6px;">Custom Layout Architecture</div>
                             </div>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-500">System Ready</span>
+                            <div class="stat-card">
+                                <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--teal);">Sub-1s</div>
+                                <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:6px;">Avg Core Web Vital Speed</div>
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <div class="h-2 w-1/2 bg-slate-700 rounded"></div>
-                            <div class="h-2 w-5/6 bg-slate-800 rounded"></div>
-                            <div class="h-2 w-3/4 bg-gradient-to-r from-accent-indigo to-accent-purple rounded"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="absolute w-72 h-72 rounded-3xl bg-gradient-to-bl from-accent-blue/10 to-transparent border border-slate-800/40 -rotate-12 pointer-events-none -z-10"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-32 px-6 max-w-7xl mx-auto reveal">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div class="lg:col-span-4 sticky top-32">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Professional Bio</span>
-                <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">Engineering Visual Value & Enterprise Scale</h2>
-                <div class="w-16 h-1 bg-gradient-to-r from-accent-indigo to-transparent mt-6"></div>
-            </div>
-            <div class="lg:col-span-8 space-y-6 text-slate-400 text-lg leading-relaxed font-light">
-                <p>
-                    As an expert <strong class="text-slate-200 font-medium">Full-Stack Web Developer & UI/UX-focused Systems Engineer</strong>, I unify premium creative design philosophies with production-grade backend performance frameworks. I eliminate standard, generic developer methodologies to construct custom solutions engineered directly to scale enterprise functionality and brand market validation.
-                </p>
-                <p>
-                    My architectural design strategy targets user engagement performance, extreme platform optimizations, top-tier technical SEO ranking infrastructures, and perfect system responsiveness across every possible display format. 
-                </p>
-                <div class="grid grid-cols-2 gap-6 pt-6">
-                    <div class="p-5 glass-panel rounded-xl">
-                        <h4 class="font-display text-white text-3xl font-bold mb-1">100%</h4>
-                        <p class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Custom Layout Architecture</p>
-                    </div>
-                    <div class="p-5 glass-panel rounded-xl">
-                        <h4 class="font-display text-white text-3xl font-bold mb-1">Sub-1s</h4>
-                        <p class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Average Core Web Vital Speed</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="py-32 bg-dark-900/50 border-y border-slate-900 px-6 relative">
+    <!-- ═══════════════════ SKILLS ═══════════════════ -->
+    <section id="skills" style="padding:120px 24px;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Full Stack Competence Matrix</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Technical Ecosystem Mastery</h2>
-                <p class="text-slate-400 font-light mt-4">Granular expertise map across verified system tools, development configurations, design layers, and performance stacks.</p>
+            <div style="text-align:center;max-width:600px;margin:0 auto 72px;" class="reveal">
+                <span class="section-label">Full Stack Competence Matrix</span>
+                <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);">Technical Ecosystem Mastery</h2>
+                <p style="font-size:15px;color:var(--text-secondary);margin-top:16px;font-weight:300;">Granular expertise map across verified system tools, development configurations, design layers, and performance stacks.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal">
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;" class="reveal">
+                <!-- Frontend -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(212,163,75,0.1);border:1px solid rgba(212,163,75,0.2);color:var(--gold);">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">Frontend Development</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-accent-indigo mb-6 border border-indigo-500/20">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">Frontend Development</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>HTML5 & CSS3</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>JavaScript / TypeScript</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>React.js / Next.js</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Tailwind CSS</span><span class="text-slate-500">Elite</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">HTML5 & CSS3</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">JavaScript / TypeScript</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">React.js / Next.js</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Tailwind CSS</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                <!-- Backend -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(62,207,178,0.1);border:1px solid rgba(62,207,178,0.2);color:var(--teal);">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">Backend Systems</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-accent-purple mb-6 border border-purple-500/20">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">Backend Systems</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>PHP Architecture</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>Laravel Framework</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Node.js Platforms</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Python Applications</span><span class="text-slate-500">Intermediate</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">PHP Architecture</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Laravel Framework</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Node.js Platforms</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Python Applications</span><span class="skill-level">Intermediate</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                <!-- Databases -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.2);color:var(--crimson);">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">Databases & APIs</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-accent-blue mb-6 border border-blue-500/20">
-                            <i class="fa-solid fa-database"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">Databases & APIs</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>MySQL Systems</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>REST APIs Architecture</span><span class="text-slate-500">Elite</span></li>
-                            <li class="flex justify-between"><span>Data Serialization</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Query Optimization</span><span class="text-slate-500">Advanced</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">MySQL Systems</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">REST APIs Architecture</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Data Serialization</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Query Optimization</span><span class="skill-level">Advanced</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                <!-- UI/UX -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);color:#a78bfa;">
+                        <i class="fa-solid fa-bezier-curve"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">UI/UX & Design</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-6 border border-pink-500/20">
-                            <i class="fa-solid fa-bezier-curve"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">UI/UX & Design</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>Prototyping & Flow</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>Premium Typography Systems</span><span class="text-slate-500">Elite</span></li>
-                            <li class="flex justify-between"><span>Micro-Interactions</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Brand Guidelines Integration</span><span class="text-slate-500">Expert</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Prototyping & Flow</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Premium Typography</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Micro-Interactions</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Brand Guidelines</span><span class="skill-level">Expert</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                <!-- CMS -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);color:#fbbf24;">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">CMS Platforms</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6 border border-amber-500/20">
-                            <i class="fa-solid fa-cubes"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">CMS Platforms</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>WordPress Customization</span><span class="text-slate-500">Elite</span></li>
-                            <li class="flex justify-between"><span>Shopify Architecture</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Moodle LMS Custom Systems</span><span class="text-slate-500">Expert</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">WordPress Customization</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Shopify Architecture</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Moodle LMS Systems</span><span class="skill-level">Expert</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                <!-- SEO -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);color:#34d399;">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">SEO & Optimization</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6 border border-emerald-500/20">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">SEO & Optimization</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>Technical Crawl SEO</span><span class="text-slate-500">Elite</span></li>
-                            <li class="flex justify-between"><span>Performance & Speed Optimization</span><span class="text-slate-500">Elite</span></li>
-                            <li class="flex justify-between"><span>Core Web Vitals Engineering</span><span class="text-slate-500">Elite</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Technical Crawl SEO</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Performance & Speed</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Core Web Vitals</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                <!-- DevOps -->
+                <div class="glass-hover" style="padding:28px;border-radius:18px;">
+                    <div class="service-icon" style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);color:#fb923c;">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">Deployment & DevOps</h3>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6 border border-orange-500/20">
-                            <i class="fa-solid fa-terminal"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-white mb-4">Deployment & DevOps</h3>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex justify-between"><span>Git & GitHub Workflows</span><span class="text-slate-500">Expert</span></li>
-                            <li class="flex justify-between"><span>Linux Server Admin</span><span class="text-slate-500">Advanced</span></li>
-                            <li class="flex justify-between"><span>Vercel / Netlify Edge</span><span class="text-slate-500">Elite</span></li>
-                        </ul>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Git & GitHub Workflows</span><span class="skill-level">Expert</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Linux Server Admin</span><span class="skill-level">Advanced</span></div>
+                        <div class="skill-row"><span style="color:var(--text-secondary);">Vercel / Netlify Edge</span><span class="skill-level" style="color:var(--teal);">Elite</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 reveal">
-            <div>
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Live Enterprise Architectures</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Case Studies & Production Deployments</h2>
+    <!-- ═══════════════════ PROJECTS ═══════════════════ -->
+    <section id="projects" style="padding:120px 24px;position:relative;z-index:1;">
+        <div class="max-w-7xl mx-auto">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:60px;" class="reveal">
+                <div>
+                    <span class="section-label">Live Enterprise Architectures</span>
+                    <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);">Case Studies & Production Deployments</h2>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <button onclick="filterProjects('all', this)" class="project-tab active">All Projects</button>
+                    <button onclick="filterProjects('enterprise', this)" class="project-tab">Enterprise</button>
+                    <button onclick="filterProjects('creative', this)" class="project-tab">Creative / E-com</button>
+                    <button onclick="filterProjects('custom', this)" class="project-tab">Custom Systems</button>
+                </div>
             </div>
+
+            <div id="projects-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;" class="reveal">
+                
+                <!-- Communities Evergreening -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="enterprise">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(52,211,153,0.08),rgba(212,163,75,0.08));"></div>
+                        <i class="fa-solid fa-earth-africa" style="font-size:52px;color:rgba(52,211,153,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Sustainability</span>
+                            <span class="tag tag-muted">Tailwind</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Communities Evergreening</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Professional high-visibility platform focused on environmental sustainability, global resource deployment, and impact tracking data visualization systems.</p>
+                        <a href="https://communitiesevergreening.org/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;transition:gap 0.2s;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Wiley De Bright -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="creative">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(167,139,250,0.08));"></div>
+                        <i class="fa-solid fa-couch" style="font-size:52px;color:rgba(251,191,36,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Premium Design</span>
+                            <span class="tag tag-muted">UX Showcase</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Wiley De Bright Decor</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Elegantly spaced visual business catalog specializing in interior decor services, design presentation grids, and elite media branding layers.</p>
+                        <a href="https://wileydebrightdecor.com/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Capex Countertops -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="creative">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(96,165,250,0.08),rgba(100,116,139,0.08));"></div>
+                        <i class="fa-solid fa-border-all" style="font-size:52px;color:rgba(96,165,250,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Business Site</span>
+                            <span class="tag tag-teal">Optimized</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Capex Countertops</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Custom commercial platform crafted for a high-end structural surface fabricator showcasing interactive galleries and direct quoting modules.</p>
+                        <a href="https://capexcountertops.co.ke/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Prysil Realtors -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="enterprise">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(244,114,182,0.08),rgba(212,163,75,0.08));"></div>
+                        <i class="fa-solid fa-building" style="font-size:52px;color:rgba(244,114,182,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Real Estate</span>
+                            <span class="tag tag-muted">Ecosystem</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Prysil Realtors</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Highly responsive structural real estate portal equipped with complex custom asset filtering matrix, geo-indexing maps, and direct capture layers.</p>
+                        <a href="https://prysilrealtors.com/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- WeDrone Media -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="creative">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(167,139,250,0.08),rgba(62,207,178,0.08));"></div>
+                        <i class="fa-solid fa-helicopter" style="font-size:52px;color:rgba(167,139,250,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Media Production</span>
+                            <span class="tag tag-muted">Video Framework</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">WeDrone Media</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Cinematic design agency deployment featuring lazy-loaded heavy streaming media elements and highly structured premium aesthetic guidelines.</p>
+                        <a href="https://wedronemedia.com/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tech Partners -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="enterprise">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,163,75,0.08),rgba(96,165,250,0.08));"></div>
+                        <i class="fa-solid fa-user-gear" style="font-size:52px;color:rgba(212,163,75,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Corporate Portal</span>
+                            <span class="tag tag-teal">Solutions</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Tech Partners</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Corporate-grade digital interface deployed for a technical solutions corporation. Highly performance-optimized with 99+ score metrics configuration.</p>
+                        <a href="https://techpartners.co.ke/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Danvid Logistics -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="enterprise">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,82,82,0.08),rgba(251,146,60,0.08));"></div>
+                        <i class="fa-solid fa-truck" style="font-size:52px;color:rgba(224,82,82,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span class="tag tag-gold">Logistics</span>
+                            <span class="tag tag-muted">Infrastructure</span>
+                        </div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Danvid Logistics</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Enterprise transportation management matrix architecture built to establish corporate credibility and direct shipment workflow tracing lines.</p>
+                        <a href="https://danvidlogistics.com/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:8px;">
+                            Launch App <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DanFore -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="custom">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(167,139,250,0.08),rgba(244,114,182,0.08));"></div>
+                        <i class="fa-solid fa-microchip" style="font-size:52px;color:rgba(167,139,250,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div><span class="tag" style="background:rgba(167,139,250,0.1);color:#a78bfa;">Proprietary Build</span></div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">DanFore</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Advanced system environment customized for precise telemetry analytics pipelines, automated optimization tasks, and secure structural tracking.</p>
+                        <span style="font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-top:8px;">
+                            <i class="fa-solid fa-lock" style="font-size:9px;"></i> Enterprise Proprietary Internal Core
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Nyumba Search -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="custom">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(251,146,60,0.08));"></div>
+                        <i class="fa-solid fa-magnifying-glass-location" style="font-size:52px;color:rgba(251,191,36,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div><span class="tag tag-gold">Custom System</span></div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Nyumba Search</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Custom relational residential mapping core utilizing intricate search matrices to process geospatial multi-unit inventory databases instantly.</p>
+                        <span style="font-size:11px;font-weight:600;color:var(--gold);background:rgba(212,163,75,0.08);border:1px solid rgba(212,163,75,0.2);padding:4px 10px;border-radius:6px;display:inline-block;margin-top:8px;">Production Live Demo Available</span>
+                    </div>
+                </div>
+
+                <!-- Investment Platform -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="enterprise">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(52,211,153,0.08),rgba(62,207,178,0.08));"></div>
+                        <i class="fa-solid fa-chart-pie" style="font-size:52px;color:rgba(52,211,153,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div><span class="tag tag-teal">FinTech</span></div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Investment Platform</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">High-security digital ledger dashboard featuring yield computation formulas, automated portfolio balance graphs, and custom transactional web hooks.</p>
+                        <span style="font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-top:8px;">
+                            <i class="fa-solid fa-shield-halved" style="font-size:9px;"></i> Secure Cryptographic Infrastructure
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Moodle LMS -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="custom">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(62,207,178,0.08),rgba(96,165,250,0.08));"></div>
+                        <i class="fa-solid fa-graduation-cap" style="font-size:52px;color:rgba(62,207,178,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div><span class="tag tag-teal">LMS Engineering</span></div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Moodle LMS Customizations</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Deep backend core modifications override integration. Developed complex course progress matrices, secure user verification filters, and theme adaptations.</p>
+                        <span style="font-size:11px;font-weight:600;color:var(--text-secondary);background:rgba(255,255,255,0.05);padding:5px 12px;border-radius:6px;display:inline-block;margin-top:8px;">Enterprise Architecture</span>
+                    </div>
+                </div>
+
+                <!-- Shopify -->
+                <div class="glass-hover" style="border-radius:18px;overflow:hidden;display:flex;flex-direction:column;" data-category="creative">
+                    <div class="card-image">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,163,75,0.08),rgba(244,114,182,0.08));"></div>
+                        <i class="fa-solid fa-bag-shopping" style="font-size:52px;color:rgba(212,163,75,0.25);position:relative;"></i>
+                    </div>
+                    <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+                        <div><span class="tag tag-gold">E-Commerce</span></div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text-primary);">Shopify Development Suite</h3>
+                        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;flex:1;">Custom Liquid architectural modifications, custom checkout API layer synchronization, and headless storefront implementations built for performance optimization.</p>
+                        <span style="font-size:11px;font-weight:600;color:var(--text-secondary);background:rgba(255,255,255,0.05);padding:5px 12px;border-radius:6px;display:inline-block;margin-top:8px;">Custom Shopify Core</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ SERVICES ═══════════════════ -->
+    <section id="services" style="padding:120px 24px;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;">
+        <div class="max-w-7xl mx-auto">
+            <div style="max-width:600px;margin-bottom:72px;" class="reveal">
+                <span class="section-label">Service Spectrum</span>
+                <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);">High-Impact Digital Capabilities</h2>
+                <p style="font-size:15px;color:var(--text-secondary);margin-top:16px;font-weight:300;">Precision engineering frameworks tailored explicitly to solve production complexities and generate business revenue scaling vectors.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;" class="reveal">
+                
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(212,163,75,0.1);border:1px solid rgba(212,163,75,0.15);color:var(--gold);">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Full Stack Web Development</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">End-to-end engineered web platforms mapping deep custom logic structures, secure authorization gateways, and pristine script executions.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.15);color:#a78bfa;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">UI/UX Design Systems</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Bespoke functional interfaces engineered with strict attention to spatial layout, visual weight hierarchy, transitions, and user engagement flows.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.15);color:#60a5fa;">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Enterprise Business Websites</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">High-converting strategic online infrastructures optimized to project elite corporate credibility, attract high-intent leads, and process integrations.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(244,114,182,0.1);border:1px solid rgba(244,114,182,0.15);color:#f472b6;">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Advanced E-Commerce Platforms</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Performance-locked shopping systems optimizing fluid checkout pipelines, payment gateway security layers, and scalable catalogs handling traffic surges.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.15);color:#fbbf24;">
+                        <i class="fa-solid fa-window-restore"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Custom Web Applications</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Tailored web platforms built explicitly around internal corporate operational dependencies, automating data collection, and handling heavy multi-tenant tasks.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.15);color:#34d399;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">SEO Engineering & Architecture</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Deep search crawler schema configurations, semantic markdown structures, and site routing loops crafted to rank at the apex of industry indices.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(62,207,178,0.1);border:1px solid rgba(62,207,178,0.15);color:var(--teal);">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">LMS Platform Engineering</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Custom virtual classrooms and multi-tiered educational ecosystems deployment utilizing heavy tracking metrics configurations (Moodle/Custom).</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.15);color:#fb923c;">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Performance Optimization Core</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Refactoring slow application codes, minimizing script loads, asset pooling, and configuring edge caching vectors to guarantee instantaneous rendering.</p>
+                </div>
+
+                <div class="glass" style="padding:28px;border-radius:16px;">
+                    <div class="service-icon" style="background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.15);color:var(--crimson);">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Continuous Platform Maintenance</h3>
+                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;font-weight:300;">Proactive dependency upgrades, firewalled code protection patches, daily database indexing preservation loops, and emergency fault isolation support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ SEO ═══════════════════ -->
+    <section id="seo" style="padding:120px 24px;position:relative;z-index:1;" class="reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass" style="border-radius:24px;padding:clamp(32px,6vw,72px);overflow:hidden;position:relative;">
+                <!-- BG accent -->
+                <div style="position:absolute;right:-80px;bottom:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(212,163,75,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+                <div style="position:absolute;left:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(62,207,178,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+                <div style="display:grid;grid-template-columns:1fr;gap:52px;align-items:center;position:relative;" class="seo-grid">
+                    <div style="space-y:24px;">
+                        <div style="display:inline-block;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);background:rgba(212,163,75,0.08);border:1px solid rgba(212,163,75,0.2);padding:5px 14px;border-radius:100px;margin-bottom:20px;">Rank Engineering Lab</div>
+                        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:20px;">Dominating Local Business Search Ecosystems</h2>
+                        <p style="font-size:16px;color:var(--text-secondary);line-height:1.8;margin-bottom:32px;font-weight:300;">
+                            Standard developers merely build scripts; I build search-engine authority frameworks. My architectural configurations guarantee your company structures are instantly parsed, indexed, and pushed to the top tier of local consumer intent metrics.
+                        </p>
+                        
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>Google Business Profile Optimization</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>On-Page Semantic Keyword Arrays</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>Structured JSON-LD Schema Injector</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>Core Web Vitals & Speed Lock</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>Mobile Responsive Indexing Guard</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);">
+                                <i class="fa-solid fa-circle-check" style="color:var(--gold);font-size:11px;"></i>
+                                <span>Technical Hierarchy Architecture</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background:rgba(10,10,8,0.7);padding:28px;border-radius:16px;border:1px solid var(--border);">
+                        <h4 style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:20px;">SEO Audit Metrics Simulation</h4>
+                        <div style="display:flex;flex-direction:column;gap:20px;">
+                            <div>
+                                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;">
+                                    <span style="color:var(--text-secondary);">Core Web Vitals LCP Score</span>
+                                    <span style="color:#34d399;font-weight:600;">0.8s — Excellent</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:98%;"></div></div>
+                            </div>
+                            <div>
+                                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;">
+                                    <span style="color:var(--text-secondary);">Schema.org Structured Deployment</span>
+                                    <span style="color:#34d399;font-weight:600;">100% Configured</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div>
+                            </div>
+                            <div>
+                                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;">
+                                    <span style="color:var(--text-secondary);">Local Search Footprint Conversion</span>
+                                    <span style="color:var(--gold);font-weight:600;">+240% Growth</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:92%;background:linear-gradient(to right,var(--gold),var(--gold-light));"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+    <section style="padding:120px 24px;background:var(--bg-secondary);border-top:1px solid var(--border);position:relative;z-index:1;">
+        <div class="max-w-7xl mx-auto">
+            <div style="text-align:center;max-width:600px;margin:0 auto 72px;" class="reveal">
+                <span class="section-label">Client Validation</span>
+                <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);">Endorsements From Enterprise Partners</h2>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;" class="reveal">
+                
+                <div class="glass" style="padding:32px;border-radius:18px;position:relative;overflow:hidden;">
+                    <span class="quote-mark">"</span>
+                    <p style="font-size:14px;color:var(--text-secondary);line-height:1.8;font-weight:300;font-style:italic;position:relative;margin-bottom:28px;">
+                        "Danford completely reimagined our digital portal strategy. His execution on our complex layout configuration cut down user transition resistance and improved technical tracking immediately."
+                    </p>
+                    <div style="display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border);">
+                        <div style="width:42px;height:42px;border-radius:50%;background:rgba(212,163,75,0.15);border:1px solid rgba(212,163,75,0.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:var(--gold);">EO</div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Executive Officer</div>
+                            <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:2px;">Sustainability Sector Partner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass" style="padding:32px;border-radius:18px;position:relative;overflow:hidden;">
+                    <span class="quote-mark">"</span>
+                    <p style="font-size:14px;color:var(--text-secondary);line-height:1.8;font-weight:300;font-style:italic;position:relative;margin-bottom:28px;">
+                        "The level of spatial layout mastery and clean visual typography structure Danford deployed for our service catalog was incredible. Highly recommended for premium brand architectural designs."
+                    </p>
+                    <div style="display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border);">
+                        <div style="width:42px;height:42px;border-radius:50%;background:rgba(62,207,178,0.12);border:1px solid rgba(62,207,178,0.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:var(--teal);">MD</div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Managing Director</div>
+                            <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:2px;">Premium Interior Brand</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass" style="padding:32px;border-radius:18px;position:relative;overflow:hidden;">
+                    <span class="quote-mark">"</span>
+                    <p style="font-size:14px;color:var(--text-secondary);line-height:1.8;font-weight:300;font-style:italic;position:relative;margin-bottom:28px;">
+                        "Our localized organic crawl acquisition multiplied within months of implementing Danford's structured technical schema layout. He is far beyond standard web developers."
+                    </p>
+                    <div style="display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border);">
+                        <div style="width:42px;height:42px;border-radius:50%;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:#60a5fa;">VP</div>
+                        <div>
+                            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">VP of Operations</div>
+                            <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:2px;">Commercial Logistics Matrix</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ CONTACT ═══════════════════ -->
+    <section id="contact" style="padding:120px 24px;position:relative;z-index:1;" class="reveal">
+        <div class="max-w-7xl mx-auto">
+            <div style="display:grid;grid-template-columns:1fr;gap:60px;align-items:stretch;" class="contact-grid">
+                
+                <div style="display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+                    <div>
+                        <span class="section-label">Project Initiation</span>
+                        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:20px;">Let's Architect Something Extraordinary</h2>
+                        <p style="font-size:16px;color:var(--text-secondary);line-height:1.8;font-weight:300;">
+                            Have an elite project initialization framework, application buildout, or localization search optimization campaign needing senior engineering oversight? Let's connect immediately.
+                        </p>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <a href="https://www.linkedin.com/in/danfordakala/" target="_blank" class="contact-row">
+                            <div class="contact-icon" style="background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);color:#60a5fa;">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Professional Channel</div>
+                                <div style="font-size:13px;color:var(--text-primary);font-weight:500;margin-top:3px;">linkedin.com/in/danfordakala</div>
+                            </div>
+                        </a>
+
+                        <div class="contact-row">
+                            <div class="contact-icon" style="background:rgba(212,163,75,0.1);border:1px solid rgba(212,163,75,0.2);color:var(--gold);">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Direct System Mail</div>
+                                <div style="font-size:13px;color:var(--text-primary);font-weight:500;margin-top:3px;">contact@danfordakala.com</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="contact-icon" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);color:#34d399;">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Instant Secure Comms</div>
+                                <div style="font-size:13px;color:var(--text-primary);font-weight:500;margin-top:3px;">Available via encrypted outreach</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass" style="padding:clamp(24px,4vw,48px);border-radius:24px;">
+                    <form id="contact-form" onsubmit="handleFormSubmission(event)" style="display:flex;flex-direction:column;gap:20px;">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                            <div>
+                                <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;">Full Name</label>
+                                <input type="text" required placeholder="John Doe" class="form-input">
+                            </div>
+                            <div>
+                                <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;">Email Address</label>
+                                <input type="email" required placeholder="john@enterprise.com" class="form-input">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;">Project Classification</label>
+                            <select class="form-input">
+                                <option>Full-Stack Custom Application</option>
+                                <option>Premium Corporate Branding Architecture</option>
+                                <option>Local Crawl Technical SEO Strategy</option>
+                                <option>LMS/CMS Ecosystem Deployment</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;">System Specifications</label>
+                            <textarea rows="5" required placeholder="Describe your structural platform requirements or operational timeline scope..." class="form-input" style="resize:none;"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="justify-content:center;padding:16px;font-size:12px;">
+                            <span>Transmit Encrypted Specifications</span>
+                            <i class="fa-solid fa-paper-plane" style="font-size:11px;"></i>
+                        </button>
+                        
+                        <div id="form-feedback" style="display:none;text-align:center;font-size:12px;font-weight:600;color:#34d399;padding:12px;background:rgba(52,211,153,0.08);border-radius:8px;border:1px solid rgba(52,211,153,0.2);">
+                            ✓ Transmission Successful. System evaluation underway.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer style="border-top:1px solid var(--border);background:var(--bg-secondary);padding:48px 24px;position:relative;z-index:1;">
+        <div class="max-w-7xl mx-auto" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;">
+            <span style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.1em;color:var(--text-muted);">
+                DANFORD AKALA <span style="color:var(--gold);">//</span> DIGITAL ENGINEER
+            </span>
             
-            <div class="flex flex-wrap gap-2 text-xs font-semibold tracking-wider uppercase">
-                <button onclick="filterProjects('all')" class="project-tab px-4 py-2 rounded-lg bg-accent-indigo text-white transition-all">All Projects</button>
-                <button onclick="filterProjects('enterprise')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Enterprise</button>
-                <button onclick="filterProjects('creative')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Creative</button>
-                <button onclick="filterProjects('custom')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Custom Systems</button>
+            <div style="display:flex;gap:24px;">
+                <a href="#about" style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">About</a>
+                <a href="#projects" style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Projects</a>
+                <a href="#services" style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Services</a>
             </div>
+
+            <p style="font-size:12px;color:var(--text-muted);">&copy; 2026 Danford Akala. All Infrastructure Rights Reserved.</p>
         </div>
+    </footer>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="projects-grid">
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-earth-africa text-5xl text-emerald-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Sustainability</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Tailwind</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Communities Evergreening</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Professional high-visibility platform focused on environmental sustainability, global resource deployment, and impact tracking data visualization systems.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://communitiesevergreening.org/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="creative">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-purple-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-couch text-5xl text-amber-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Premium Design</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">UX Showcase</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Wiley De Bright Decor</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Elegantly spaced visual business catalog specializing in interior decor services, design presentation grids, and elite media branding layers.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://wileydebrightdecor.com/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="creative">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-slate-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-border-all text-5xl text-blue-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Business Site</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Optimized</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Capex Countertops</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Custom commercial platform crafted for a high-end structural surface fabricator showcasing interactive galleries and direct quoting modules.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://capexcountertops.co.ke/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-indigo-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-building text-5xl text-pink-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Real Estate</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Ecosystem</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Prysil Realtors</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Highly responsive structural real estate portal equipped with complex custom asset filtering matrix, geo-indexing maps, and direct capture layers.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://prysilrealtors.com/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="creative">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-helicopter text-5xl text-purple-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Media Production</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Video Framework</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">WeDrone Media</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Cinematic design agency deployment featuring lazy-loaded heavy streaming media elements and highly structured premium aesthetic guidelines.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://wedronemedia.com/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="custom">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-graduation-cap text-5xl text-blue-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Custom System</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">LMS Dev</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Moodle Custom Integration</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Tailored institutional e-learning framework managing complex enterprise authentication setups and localized optimization layers.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <span class="text-xs text-slate-500 px-4 py-2 italic">Enterprise Closed Repo</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-32 bg-dark-900/40 border-t border-slate-900 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-20 reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Strategic Services</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Elite Digital Engineering</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-                <div class="p-8 glass-panel rounded-2xl space-y-4">
-                    <div class="text-accent-indigo text-2xl"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3 class="font-display text-xl font-bold text-white">Custom Web Systems</h3>
-                    <p class="text-slate-400 text-sm font-light leading-relaxed">Building premium scalable systems utilizing custom modern frameworks. Zero bloated templates, 100% bespoke performance-oriented clean logic architecture.</p>
-                </div>
-                <div class="p-8 glass-panel rounded-2xl space-y-4">
-                    <div class="text-accent-purple text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                    <h3 class="font-display text-xl font-bold text-white">UI/UX Solutions</h3>
-                    <p class="text-slate-400 text-sm font-light leading-relaxed">Immersive interactive interface designs crafted directly onto advanced responsive micro-interactions to instantly skyrocket standard business market conversions.</p>
-                </div>
-                <div class="p-8 glass-panel rounded-2xl space-y-4">
-                    <div class="text-accent-blue text-2xl"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                    <h3 class="font-display text-xl font-bold text-white">Technical SEO Strategies</h3>
-                    <p class="text-slate-400 text-sm font-light leading-relaxed">Deep search infrastructure alignments configuration targeting instantaneous index validation, custom structured schema metadata graphs, and organic growth.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="seo" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal">
-            <div class="space-y-6">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block">Organic Domination</span>
-                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">High-Performance Local SEO Engineering</h2>
-                <p class="text-slate-400 font-light leading-relaxed">
-                    A gorgeous layout is completely useless if nobody can discover it. I craft pristine search discoverability infrastructures, injection-optimized structural schemas, speed configurations that satisfy top search algorithms, and precise local indexing signals built explicitly to capture intent-driven enterprise user traffic.
-                </p>
-                <ul class="space-y-3 text-sm text-slate-300 font-light">
-                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Automated Semantic Schema Graphs Markup</span></li>
-                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Perfect 100/100 Core Web Vital Speeds Indexing</span></li>
-                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Strategic Local Target Keyword Structural Funneling</span></li>
-                </ul>
-            </div>
-            <div class="glass-panel p-8 rounded-2xl space-y-4 border border-slate-800">
-                <h4 class="font-display text-lg font-bold text-white flex items-center justify-between">
-                    <span>Crawl Audit Simulation</span>
-                    <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Healthy</span>
-                </h4>
-                <div class="space-y-3 font-mono text-xs text-slate-400 bg-dark-950 p-4 rounded-xl border border-slate-800">
-                    <p class="text-slate-500">// Simulating Core Web Vitals Audit...</p>
-                    <p>Largest Contentful Paint: <span class="text-emerald-400">0.6s (Passed)</span></p>
-                    <p>Cumulative Layout Shift: <span class="text-emerald-400">0.01 (Passed)</span></p>
-                    <p>Total Blocking Time: <span class="text-emerald-400">12ms (Passed)</span></p>
-                    <p class="text-accent-indigo">Structure Schema Graph Generated Successfully.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-32 bg-dark-900/30 border-t border-slate-900 px-6">
-        <div class="max-w-3xl mx-auto text-center space-y-8 reveal">
-            <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block">Let's Connect</span>
-            <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Initiate a Strategic Digital Architecture Consultation</h2>
-            <p class="text-slate-400 font-light text-lg max-w-xl mx-auto">
-                Ready to scale your operation, completely modernize your UI/UX layout, or dominate technical organic rankings? Let’s schedule a consultation.
-            </p>
-            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm">
-                <a href="mailto:danfordakala@example.com" class="px-8 py-4 bg-white text-dark-950 hover:bg-slate-200 font-semibold rounded-xl transition-all duration-300 flex items-center space-x-3 shadow-xl">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span>d.akala@drofnad.com</span>
-                </a>
-                <a href="#" class="px-8 py-4 glass-panel border border-slate-700 hover:border-slate-500 text-white font-medium rounded-xl transition-all duration-300 flex items-center space-x-2">
-                    <i class="fa-brands fa-linkedin-in text-slate-400"></i>
-                    <span>Connect on LinkedIn</span>
-                </a>
-            </div>
-        </div>
-    </section>
+    <!-- Responsive grid fixes -->
+    <style>
+        @media (min-width: 768px) {
+            .about-grid { grid-template-columns: 1fr 2fr !important; }
+            .seo-grid { grid-template-columns: 1fr 1fr !important; }
+            .contact-grid { grid-template-columns: 5fr 7fr !important; }
+        }
+        @media (max-width: 640px) {
+            .about-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
 
     <script>
-        // 1. Fixed Header Background Transition on Scroll
+        // Header scroll effect
         const header = document.getElementById('main-header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                header.classList.add('glass-panel', 'shadow-xl', 'border-b', 'border-slate-800/40');
-            } else {
-                header.classList.remove('glass-panel', 'shadow-xl', 'border-b', 'border-slate-800/40');
-            }
+            header.classList.toggle('scrolled', window.scrollY > 40);
         });
 
-        // 2. Mobile Nav Drawer Drawer Trigger Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
+        // Mobile menu
+        const btn = document.getElementById('mobile-menu-btn');
         const drawer = document.getElementById('mobile-drawer');
-        menuBtn.addEventListener('click', () => {
-            drawer.classList.toggle('hidden');
-        });
-        
-        // Auto-close drawer when any link is clicked
-        drawer.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => drawer.classList.add('hidden'));
-        });
+        btn.addEventListener('click', () => drawer.classList.toggle('hidden'));
+        drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.add('hidden')));
 
-        // 3. Project Filter Matrix Logic engine
-        function filterProjects(category) {
-            const cards = document.querySelectorAll('#projects-grid > div');
-            const tabs = document.querySelectorAll('.project-tab');
-            
-            // Toggle active style on target tab button
-            tabs.forEach(tab => {
-                if(tab.getAttribute('onclick').includes(category)) {
-                    tab.classList.add('bg-accent-indigo', 'text-white');
-                    tab.classList.remove('text-slate-400', 'hover:text-white');
-                } else {
-                    tab.classList.remove('bg-accent-indigo', 'text-white');
-                    tab.classList.add('text-slate-400', 'hover:text-white');
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('active');
+                    observer.unobserve(e.target);
                 }
             });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Filtering implementation
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
+        // Project filter
+        function filterProjects(category, el) {
+            document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('#projects-grid > div').forEach(card => {
+                const show = category === 'all' || card.dataset.category === category;
+                card.style.display = show ? 'flex' : 'none';
+                if (show) {
+                    card.style.opacity = '0';
+                    requestAnimationFrame(() => {
+                        card.style.transition = 'opacity 0.3s';
+                        card.style.opacity = '1';
+                    });
                 }
             });
         }
 
-        // 4. Scroll Reveal Intersection Observers
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        revealElements.forEach(el => revealObserver.observe(el));
+        // Contact form
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            const fb = document.getElementById('form-feedback');
+            fb.style.display = 'block';
+            e.target.reset();
+            setTimeout(() => { fb.style.display = 'none'; }, 6000);
+        }
     </script>
 </body>
 </html>
