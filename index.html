@@ -104,7 +104,7 @@
             </button>
         </div>
         
-        <div class="hidden id="mobile-drawer" class="absolute top-20 left-0 w-full glass-panel border-b border-slate-800 flex flex-col p-6 space-y-4 md:hidden animate-fade-in">
+        <div id="mobile-drawer" class="hidden absolute top-20 left-0 w-full glass-panel border-b border-slate-800 flex flex-col p-6 space-y-4 md:hidden">
             <a href="#about" class="text-slate-300 hover:text-white text-lg py-2">About</a>
             <a href="#skills" class="text-slate-300 hover:text-white text-lg py-2">Expertise</a>
             <a href="#projects" class="text-slate-300 hover:text-white text-lg py-2">Case Studies</a>
@@ -318,13 +318,12 @@
             <div class="flex flex-wrap gap-2 text-xs font-semibold tracking-wider uppercase">
                 <button onclick="filterProjects('all')" class="project-tab px-4 py-2 rounded-lg bg-accent-indigo text-white transition-all">All Projects</button>
                 <button onclick="filterProjects('enterprise')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Enterprise</button>
-                <button onclick="filterProjects('creative')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Creative / E-com</button>
+                <button onclick="filterProjects('creative')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Creative</button>
                 <button onclick="filterProjects('custom')" class="project-tab px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Custom Systems</button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="projects-grid">
-            
             <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
                 <div>
                     <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
@@ -435,524 +434,164 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-user-gear text-5xl text-indigo-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Corporate Portal</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Solutions</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Tech Partners</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Corporate-grade digital interface deployed for a technical solutions corporation. Highly performance-optimized with a 99+ score metrics configuration.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://techpartners.co.ke/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-orange-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-truck text-5xl text-red-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Logistics</span>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Infrastructure</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Danvid Logistics</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Enterprise transportation management matrix architecture built to establish corporate credibility and direct shipment workflow tracing lines.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-4">
-                    <a href="https://danvidlogistics.com/" target="_blank" class="text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors flex items-center space-x-1">
-                        <span>Launch App</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
             <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="custom">
                 <div>
                     <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-microchip text-5xl text-violet-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-purple bg-accent-purple/10 px-2 py-0.5 rounded">Proprietary Build</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">DanFore</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Advanced system environment customized for precise telemetry analytics pipelines, automated optimization tasks, and secure structural tracking.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <span class="text-xs font-medium text-slate-500 italic flex items-center gap-1">
-                        <i class="fa-solid fa-lock text-[10px]"></i> Enterprise Proprietary Internal Core
-                    </span>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="custom">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-magnifying-glass-location text-5xl text-yellow-500/30"></i>
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
+                        <i class="fa-solid fa-graduation-cap text-5xl text-blue-500/30"></i>
                     </div>
                     <div class="p-6 space-y-4">
                         <div class="flex flex-wrap gap-2">
                             <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">Custom System</span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-800 px-2 py-0.5 rounded">LMS Dev</span>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white">Nyumba Search</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Custom relational residential mapping core utilizing intricate search matrices to process geospatial multi-unit inventory databases instantly.</p>
+                        <h3 class="font-display text-xl font-bold text-white">Moodle Custom Integration</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Tailored institutional e-learning framework managing complex enterprise authentication setups and localized optimization layers.</p>
                     </div>
                 </div>
-                <div class="p-6 pt-0">
-                    <span class="text-xs font-medium text-accent-indigo bg-accent-indigo/5 px-2 py-1 rounded border border-accent-indigo/20 inline-block">Production Live Demo Available</span>
+                <div class="p-6 pt-0 flex gap-4">
+                    <span class="text-xs text-slate-500 px-4 py-2 italic">Enterprise Closed Repo</span>
                 </div>
             </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="enterprise">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-chart-pie text-5xl text-green-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded">FinTech</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Investment Platform</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">High-security digital ledger dashboard featuring yield computation formulas, automated portfolio balance graphs, and custom transactional web hooks.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <span class="text-xs font-medium text-slate-500 italic flex items-center gap-1">
-                        <i class="fa-solid fa-shield-halved text-[10px]"></i> Secure Cryptographic Infrastructure
-                    </span>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="custom">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-graduation-cap text-5xl text-cyan-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded">LMS Engineering</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Moodle LMS Customizations</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Deep backend core modifications override integration. Developed complex course progress matrices, secure user verification filters, and theme adaptations.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <span class="text-xs font-semibold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg">Enterprise Architecture</span>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-category="creative">
-                <div>
-                    <div class="relative bg-slate-900 h-48 flex items-center justify-center border-b border-slate-800 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-pink-500/10 opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
-                        <i class="fa-solid fa-bag-shopping text-5xl text-indigo-500/30"></i>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-accent-indigo bg-accent-indigo/10 px-2 py-0.5 rounded">E-Commerce</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-white">Shopify Development Suite</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Custom Liquid architectural modifications, custom checkout API layer synchronization, and headless storefront implementations built for performance optimization.</p>
-                    </div>
-                </div>
-                <div class="p-6 pt-0">
-                    <span class="text-xs font-semibold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg">Custom Shopify Core</span>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <section id="services" class="py-32 bg-dark-900/40 border-y border-slate-900/60 px-6">
+    <section id="services" class="py-32 bg-dark-900/40 border-t border-slate-900 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="max-w-3xl mb-20 reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Service Spectrum</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">High-Impact Digital Capabilities</h2>
-                <p class="text-slate-400 font-light mt-4">Precision engineering frameworks tailored explicitly to solve production complexities and generate business revenue scaling vectors.</p>
+            <div class="mb-20 reveal">
+                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Strategic Services</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Elite Digital Engineering</h2>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-accent-indigo/10 text-accent-indigo flex items-center justify-center text-sm border border-accent-indigo/20">
-                        <i class="fa-solid fa-code-branch"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Full Stack Web Development</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">End-to-end engineered web platforms mapping deep custom logic structures, secure authorization gateways, and pristine script executions.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <div class="p-8 glass-panel rounded-2xl space-y-4">
+                    <div class="text-accent-indigo text-2xl"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3 class="font-display text-xl font-bold text-white">Custom Web Systems</h3>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">Building premium scalable systems utilizing custom modern frameworks. Zero bloated templates, 100% bespoke performance-oriented clean logic architecture.</p>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-accent-purple/10 text-accent-purple flex items-center justify-center text-sm border border-accent-purple/20">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">UI/UX Design Systems</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Bespoke functional interfaces engineered with strict attention to spatial layout, visual weight hierarchy, transitions, and user engagement flows.</p>
+                <div class="p-8 glass-panel rounded-2xl space-y-4">
+                    <div class="text-accent-purple text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 class="font-display text-xl font-bold text-white">UI/UX Solutions</h3>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">Immersive interactive interface designs crafted directly onto advanced responsive micro-interactions to instantly skyrocket standard business market conversions.</p>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-accent-blue/10 text-accent-blue flex items-center justify-center text-sm border border-accent-blue/20">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Enterprise Business Websites</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">High-converting strategic online infrastructures optimized to project elite corporate credibility, attract high-intent leads, and process integrations.</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center text-sm border border-pink-500/20">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Advanced E-Commerce Platforms</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Performance-locked shopping systems optimizing fluid checkout pipelines, payment gateway security layers, and scalable catalogs handling traffic surges.</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-sm border border-amber-500/20">
-                        <i class="fa-solid fa-window-restore"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Custom Web Applications</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Tailored web platforms built explicitly around internal corporate operational dependencies, automating data collection, and handling heavy multi-tenant tasks.</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm border border-emerald-500/20">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">SEO Engineering & Architecture</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Deep search crawler schema configurations, semantic markdown structures, and site routing loops crafted to rank at the apex of industry indices.</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-sm border border-cyan-500/20">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">LMS Platform Engineering</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Custom virtual classrooms and multi-tiered educational ecosystems deployment utilizing heavy tracking metrics configurations (Moodle/Custom).</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center text-sm border border-orange-500/20">
-                        <i class="fa-solid fa-gauge-high"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Performance Optimization Core</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Refactoring slow application codes, minimizing script loads, asset pooling, and configuring edge caching vectors to guarantee instantaneous rendering.</p>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-sm border border-red-500/20">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-white">Continuous Platform Maintenance</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">Proactive dependency upgrades, firewalled code protection patches, daily database indexing preservation loops, and emergency fault isolation support.</p>
+                <div class="p-8 glass-panel rounded-2xl space-y-4">
+                    <div class="text-accent-blue text-2xl"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h3 class="font-display text-xl font-bold text-white">Technical SEO Strategies</h3>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">Deep search infrastructure alignments configuration targeting instantaneous index validation, custom structured schema metadata graphs, and organic growth.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="seo" class="py-32 px-6 max-w-7xl mx-auto reveal">
-        <div class="glass-panel rounded-3xl p-8 sm:p-16 border border-slate-800/80 relative overflow-hidden">
-            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-accent-indigo/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-block text-xs font-bold uppercase tracking-wider text-accent-indigo bg-accent-indigo/10 px-3 py-1 rounded">Rank Engineering Lab</div>
-                    <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Dominating Local Business Search Ecosystems</h2>
-                    <p class="text-slate-400 font-light leading-relaxed text-base sm:text-lg">
-                        Standard developers merely build scripts; I build search-engine authority frameworks. My architectural configurations guarantee your company structures are instantly parsed, indexed, and pushed to the top tier of local consumer intent metrics.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300 font-light pt-2">
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>Google Business Profile Optimization</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>On-Page Semantic Keyword Arrays</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>Structured JSON-LD Schema Injector</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>Core Web Vitals & Speed Lock</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>Mobile Responsive Indexing Guard</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-circle-check text-accent-indigo text-xs"></i>
-                            <span>Technical Hierarchy Architecture</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-5 bg-dark-950/60 p-6 rounded-2xl border border-slate-800 space-y-4">
-                    <h4 class="font-display text-sm font-bold text-white uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-3">SEO Audit Metrics Simulation</h4>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-xs font-medium mb-1"><span class="text-slate-400">Core Web Vitals LCP Score</span><span class="text-emerald-400">0.8s (Excellent)</span></div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded"><div class="bg-emerald-500 h-1.5 rounded" style="width: 98%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-medium mb-1"><span class="text-slate-400">Schema.org Structured Deployment</span><span class="text-emerald-400">100% Configured</span></div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded"><div class="bg-emerald-500 h-1.5 rounded" style="width: 100%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-medium mb-1"><span class="text-slate-400">Local Search Footprint Conversion</span><span class="text-accent-purple">+240% Growth</span></div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded"><div class="bg-accent-purple h-1.5 rounded" style="width: 92%"></div></div>
-                        </div>
-                    </div>
+    <section id="seo" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal">
+            <div class="space-y-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block">Organic Domination</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">High-Performance Local SEO Engineering</h2>
+                <p class="text-slate-400 font-light leading-relaxed">
+                    A gorgeous layout is completely useless if nobody can discover it. I craft pristine search discoverability infrastructures, injection-optimized structural schemas, speed configurations that satisfy top search algorithms, and precise local indexing signals built explicitly to capture intent-driven enterprise user traffic.
+                </p>
+                <ul class="space-y-3 text-sm text-slate-300 font-light">
+                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Automated Semantic Schema Graphs Markup</span></li>
+                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Perfect 100/100 Core Web Vital Speeds Indexing</span></li>
+                    <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-accent-indigo text-xs"></i> <span>Strategic Local Target Keyword Structural Funneling</span></li>
+                </ul>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl space-y-4 border border-slate-800">
+                <h4 class="font-display text-lg font-bold text-white flex items-center justify-between">
+                    <span>Crawl Audit Simulation</span>
+                    <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Healthy</span>
+                </h4>
+                <div class="space-y-3 font-mono text-xs text-slate-400 bg-dark-950 p-4 rounded-xl border border-slate-800">
+                    <p class="text-slate-500">// Simulating Core Web Vitals Audit...</p>
+                    <p>Largest Contentful Paint: <span class="text-emerald-400">0.6s (Passed)</span></p>
+                    <p>Cumulative Layout Shift: <span class="text-emerald-400">0.01 (Passed)</span></p>
+                    <p>Total Blocking Time: <span class="text-emerald-400">12ms (Passed)</span></p>
+                    <p class="text-accent-indigo">Structure Schema Graph Generated Successfully.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 bg-dark-900/30 border-t border-slate-900/80 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Client Validation</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Endorsements From Enterprise Partners</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between space-y-6">
-                    <p class="text-sm text-slate-300 font-light leading-relaxed italic">
-                        "Danford completely reimagined our digital portal strategy. His execution on our complex layout configuration cut down user transition resistance and improved technical tracking immediately."
-                    </p>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-800/60">
-                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-accent-indigo font-bold text-xs">EO</div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Executive Officer</h4>
-                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Sustainability Sector Partner</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between space-y-6">
-                    <p class="text-sm text-slate-300 font-light leading-relaxed italic">
-                        "The level of spatial layout mastery and clean visual typography structure Danford deployed for our service catalog was incredible. Highly recommended for premium brand architectural designs."
-                    </p>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-800/60">
-                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-accent-purple font-bold text-xs">MD</div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Managing Director</h4>
-                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Premium Interior Brand</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between space-y-6">
-                    <p class="text-sm text-slate-300 font-light leading-relaxed italic">
-                        "Our localized organic crawl acquisition multiplied within months of implementing Danford's structured technical schema layout. He is far beyond standard web developers."
-                    </p>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-slate-800/60">
-                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-accent-blue font-bold text-xs">VP</div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">VP of Operations</h4>
-                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Commercial Logistics Matrix</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-32 px-6 max-w-7xl mx-auto reveal">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-stretch">
-            
-            <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
-                <div class="space-y-6">
-                    <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block mb-3">Project Initiation</span>
-                    <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Let's Architect Something Extraordinary</h2>
-                    <p class="text-slate-400 font-light leading-relaxed">
-                        Have an elite project initialization framework, application buildout, or localization search optimization campaign needing senior engineering oversight? Let's connect immediately.
-                    </p>
-                </div>
-
-                <div class="space-y-4">
-                    <a href="https://www.linkedin.com/in/danfordakala/" target="_blank" class="flex items-center space-x-4 p-4 glass-card rounded-xl group">
-                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Professional Channel</span>
-                            <p class="text-sm text-slate-200 font-medium">linkedin.com/in/danfordakala</p>
-                        </div>
-                    </a>
-
-                    <div class="flex items-center space-x-4 p-4 glass-panel rounded-xl">
-                        <div class="w-10 h-10 rounded-lg bg-accent-indigo/10 text-accent-indigo flex items-center justify-center border border-accent-indigo/20">
-                            <i class="fa-regular fa-envelope"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Direct System Mail</span>
-                            <p class="text-sm text-slate-200 font-medium">contact@danfordakala.com</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4 p-4 glass-panel rounded-xl">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Instant Secure Secure Comms</span>
-                            <p class="text-sm text-slate-200 font-medium">Available via encrypted outreach</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-7">
-                <form id="contact-form" class="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-800 space-y-6 flex flex-col justify-between h-full" onsubmit="handleFormSubmission(event)">
-                    <div class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Full Name</label>
-                                <input type="text" required placeholder="John Doe" class="w-full bg-dark-950/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-accent-indigo transition-colors">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Email Address</label>
-                                <input type="email" required placeholder="john@enterprise.com" class="w-full bg-dark-950/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-accent-indigo transition-colors">
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Project Vector Classification</label>
-                            <select class="w-full bg-dark-950/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-400 focus:outline-none focus:border-accent-indigo transition-colors">
-                                <option>Full-Stack Custom Application</option>
-                                <option>Premium Corporate Branding Architecture</option>
-                                <option>Local Crawl Technical SEO Strategy</option>
-                                <option>LMS/CMS Ecosystem Deployment</option>
-                            </select>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">System Functional Specifications</label>
-                            <textarea rows="5" required placeholder="Describe your structural platform requirements or operational timeline scope..." class="w-full bg-dark-950/80 border border-slate-800 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-accent-indigo transition-colors resize-none"></br></textarea>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-accent-indigo to-accent-purple hover:from-accent-purple hover:to-accent-indigo text-white text-sm font-semibold tracking-wider uppercase rounded-xl transition-all duration-300 shadow-md shadow-accent-indigo/10 flex items-center justify-center space-x-2">
-                        <span>Transmit Encrypted Specifications</span>
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                    </button>
-                    
-                    <div id="form-feedback" class="hidden text-xs font-semibold text-emerald-400 mt-2 text-center">
-                        Transmission Successful. System evaluation underway.
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="border-t border-slate-900 bg-dark-950 py-12 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-            <span class="font-display text-sm tracking-widest text-slate-500 font-bold">
-                DANFORD AKALA <span class="text-accent-indigo">//</span> DIGITAL ENGINEER
-            </span>
-            
-            <div class="flex space-x-6 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                <a href="#about" class="hover:text-white transition-colors">About</a>
-                <a href="#projects" class="hover:text-white transition-colors">Ecosystems</a>
-                <a href="#services" class="hover:text-white transition-colors">Services</a>
-            </div>
-
-            <p class="text-xs text-slate-600 font-light">
-                &copy; 2026 Danford Akala. All Infrastructure Rights Reserved.
+    <section id="contact" class="py-32 bg-dark-900/30 border-t border-slate-900 px-6">
+        <div class="max-w-3xl mx-auto text-center space-y-8 reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-accent-indigo block">Let's Connect</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">Initiate a Strategic Digital Architecture Consultation</h2>
+            <p class="text-slate-400 font-light text-lg max-w-xl mx-auto">
+                Ready to scale your operation, completely modernize your UI/UX layout, or dominate technical organic rankings? Let’s schedule a consultation.
             </p>
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm">
+                <a href="mailto:danfordakala@example.com" class="px-8 py-4 bg-white text-dark-950 hover:bg-slate-200 font-semibold rounded-xl transition-all duration-300 flex items-center space-x-3 shadow-xl">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>danfordakala@example.com</span>
+                </a>
+                <a href="#" class="px-8 py-4 glass-panel border border-slate-700 hover:border-slate-500 text-white font-medium rounded-xl transition-all duration-300 flex items-center space-x-2">
+                    <i class="fa-brands fa-linkedin-in text-slate-400"></i>
+                    <span>Connect on LinkedIn</span>
+                </a>
+            </div>
         </div>
-    </footer>
+    </section>
 
     <script>
-        // Header Visual Alpha Management on Scroll
+        // 1. Fixed Header Background Transition on Scroll
         const header = document.getElementById('main-header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                header.classList.add('glass-panel', 'shadow-xl', 'border-b', 'border-slate-900');
-                header.querySelector('div').classList.remove('h-20');
-                header.querySelector('div').classList.add('h-16');
+            if (window.scrollY > 20) {
+                header.classList.add('glass-panel', 'shadow-xl', 'border-b', 'border-slate-800/40');
             } else {
-                header.classList.remove('glass-panel', 'shadow-xl', 'border-b', 'border-slate-900');
-                header.querySelector('div').classList.add('h-20');
-                header.querySelector('div').classList.remove('h-16');
+                header.classList.remove('glass-panel', 'shadow-xl', 'border-b', 'border-slate-800/40');
             }
         });
 
-        // Mobile Menu Drawer Activation Loop
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileDrawer = document.getElementById('mobile-drawer');
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileDrawer.classList.toggle('hidden');
+        // 2. Mobile Nav Drawer Drawer Trigger Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const drawer = document.getElementById('mobile-drawer');
+        menuBtn.addEventListener('click', () => {
+            drawer.classList.toggle('hidden');
         });
         
-        // Auto-close drawer on deep link navigation step
-        mobileDrawer.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileDrawer.classList.add('hidden');
-            });
+        // Auto-close drawer when any link is clicked
+        drawer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => drawer.classList.add('hidden'));
         });
 
-        // Intersection Observer Framework for On-Scroll Micro-Reveals
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // execution efficiency lock
+        // 3. Project Filter Matrix Logic engine
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('#projects-grid > div');
+            const tabs = document.querySelectorAll('.project-tab');
+            
+            // Toggle active style on target tab button
+            tabs.forEach(tab => {
+                if(tab.getAttribute('onclick').includes(category)) {
+                    tab.classList.add('bg-accent-indigo', 'text-white');
+                    tab.classList.remove('text-slate-400', 'hover:text-white');
+                } else {
+                    tab.classList.remove('bg-accent-indigo', 'text-white');
+                    tab.classList.add('text-slate-400', 'hover:text-white');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        // Case-Study Dynamic Category Layout Matrix Filter
-        function filterProjects(category) {
-            // Adjust visual tab focus
-            const tabs = document.querySelectorAll('.project-tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('bg-accent-indigo', 'text-white');
-                tab.classList.add('text-slate-400', 'hover:text-white');
-            });
-            event.target.classList.remove('text-slate-400', 'hover:text-white');
-            event.target.classList.add('bg-accent-indigo', 'text-white');
-
-            // Toggle cards mapping visibility matrices
-            const gridCards = document.querySelectorAll('#projects-grid > div');
-            gridCards.forEach(card => {
+            // Filtering implementation
+            cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'flex';
-                    // Trigger reflow for soft fade-in animation
-                    card.style.opacity = '0';
-                    setTimeout(() => { card.style.opacity = '1'; }, 20);
                 } else {
                     card.style.display = 'none';
                 }
             });
         }
 
-        // Contact Platform Simulation Form Output Handler
-        function handleFormSubmission(e) {
-            e.preventDefault();
-            const feedback = document.getElementById('form-feedback');
-            feedback.classList.remove('hidden');
-            e.target.reset();
-            setTimeout(() => {
-                feedback.classList.add('hidden');
-            }, 6000);
-        }
+        // 4. Scroll Reveal Intersection Observers
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
